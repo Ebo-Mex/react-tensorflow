@@ -3,6 +3,7 @@
 Demo project that makes use of tensorflow.js to build a simple computer vision app in react.
 
 ## Potential project
+
 Basic hand pose detection using the HandPose model.
 
 ## Work in progress
@@ -15,3 +16,4 @@ Basic hand pose detection using the HandPose model.
 ## Extra
 
 - [ ] Improve styles with mui or ant design
+- [x] Enforce eslint + prettier
