@@ -1,5 +1,12 @@
-html {
-  background-color: rgb(85, 8, 8);
-  color: white;
-  text-align: center;
+@font-face {
+  font-family: "OxygenBold";
+  src: url("./fonts/Oxygen-Bold.ttf");
+}
+@font-face {
+  font-family: "OxygenRegular";
+  src: url("./fonts/Oxygen-Regular.ttf");
+}
+@font-face {
+  font-family: "OxygenLight";
+  src: url("./fonts/Oxygen-Light.ttf");
 }

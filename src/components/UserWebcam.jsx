@@ -7,6 +7,8 @@ import drawBB from "./drawBB";
 import useInterval from "./useInterval";
 
 const videoContraints = {
+  width: 640,
+  height: 480,
   facingMode: "user",
 };
 
@@ -18,6 +20,9 @@ export default function UserWebcam() {
 
   async function detection() {
     if (model) {
+      canvasRef.current.width = webcamRef.current.props.videoConstraints.width;
+      canvasRef.current.height =
+        webcamRef.current.props.videoConstraints.height;
       const { video } = webcamRef.current;
       const predictions = await model.estimateHands(video);
       if (predictions.length > 0) {
@@ -65,20 +70,12 @@ export default function UserWebcam() {
         audio={false}
         ref={webcamRef}
         videoConstraints={videoContraints}
-        style={{
-          width: 640,
-          height: 480,
-        }}
       />
       <canvas
         ref={canvasRef}
         style={{
           border: "1px solid black",
-          position: "absolute",
-          right: 230,
           textAlign: "center",
-          width: 640,
-          height: 480,
         }}
       />
     </>
