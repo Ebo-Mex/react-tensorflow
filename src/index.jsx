@@ -7,7 +7,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { App } from "./components";
+import { HandPoseAppContainer } from "./components";
 import reportWebVitals from "./reportWebVitals";
 
 let theme = createMuiTheme({
@@ -37,7 +37,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <HandPoseAppContainer />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
