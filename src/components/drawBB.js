@@ -1,27 +1,25 @@
-// eslint-disable-next-line no-unused-vars
 export default function drawBB(detections, ctx) {
-  // Loop through each prediction
+  // Loop through each prediction (just 1 atm)
   detections.forEach((prediction) => {
-    // Extract boxes and classes
+    // Extract box and confidence
     const { bottomRight, topLeft } = prediction.boundingBox;
-    // const text = prediction.class;
-
+    const { handInViewConfidence } = prediction;
     // Set styling
-    ctx.strokeStyle = `red`;
-    ctx.font = "18px Arial";
-
-    // console.log("tl", topLeft);
-    // console.log("br", bottomRight);
+    ctx.strokeStyle = "red";
+    ctx.font = "30px Arial";
+    // Calculate BB position
     const [x, y] = topLeft;
     const width = bottomRight[0] - topLeft[0];
     const height = bottomRight[1] - topLeft[1];
-    // console.log(x, y);
-    // console.log(width, height);
-
-    // Draw rectangle
+    // Draw text & rectangle
     ctx.beginPath();
-    ctx.fillStyle = `red`;
+    ctx.fillStyle = "red";
     ctx.rect(x, y, width / 2, height / 2);
+    ctx.fillText(
+      `${Math.floor(handInViewConfidence * 100)}% sure that is a hand`,
+      x,
+      y
+    );
     ctx.stroke();
   });
 }

@@ -11,7 +11,8 @@ Basic hand pose detection using the HandPose model.
 - [X] react-webcam implementation
 - [X] display webcam on page and basic canvas
 - [X] implement tensorflow.js model
-- [ ] draw resuls on screen
+- [X] draw resuls on screen
+  - [ ] adjust bb position
 - [X] reformat for better readability
 
 ## Extra
@@ -19,3 +20,4 @@ Basic hand pose detection using the HandPose model.
 - [X] Improve styles with mui
 - [X] Enforce eslint + prettier
 - [X] Add a button to stop webcam
+- [ ] Add instructions for user

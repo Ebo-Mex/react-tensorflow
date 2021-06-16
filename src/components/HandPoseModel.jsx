@@ -5,15 +5,14 @@ import * as handpose from "@tensorflow-models/handpose";
 import drawBB from "./drawBB";
 import useInterval from "./useInterval";
 
-export default function HandPoseModel({ videoRef }) {
+export default function HandPoseModel({ video, width, height }) {
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
 
   async function detection() {
     if (model) {
-      canvasRef.current.width = videoRef.props.videoConstraints.width;
-      canvasRef.current.height = videoRef.props.videoConstraints.height;
-      const { video } = videoRef;
+      canvasRef.current.width = width;
+      canvasRef.current.height = height;
       const predictions = await model.estimateHands(video);
       if (predictions.length > 0) {
         const ctx = canvasRef.current.getContext("2d");
@@ -65,5 +64,7 @@ export default function HandPoseModel({ videoRef }) {
 
 HandPoseModel.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  videoRef: PropTypes.object.isRequired,
+  video: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
 };

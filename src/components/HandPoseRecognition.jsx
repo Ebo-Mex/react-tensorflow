@@ -1,7 +1,20 @@
 import { useRef } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Webcam from "react-webcam";
 import PropTypes from "prop-types";
 import HandPoseModel from "./HandPoseModel";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    "& > *": {
+      position: "absolute",
+    },
+  },
+}));
 
 const videoContraints = {
   width: 640,
@@ -10,10 +23,11 @@ const videoContraints = {
 };
 
 export default function HandPoseRecognition({ detect, showCam }) {
+  const classes = useStyles();
   const webcamRef = useRef(null);
 
   return (
-    <>
+    <div className={classes.root}>
       {showCam && (
         <Webcam
           audio={false}
@@ -21,8 +35,14 @@ export default function HandPoseRecognition({ detect, showCam }) {
           videoConstraints={videoContraints}
         />
       )}
-      {detect && <HandPoseModel videoRef={webcamRef.current} />}
-    </>
+      {detect && (
+        <HandPoseModel
+          video={webcamRef.current.video}
+          width={webcamRef.current.props.videoConstraints.width}
+          height={webcamRef.current.props.videoConstraints.height}
+        />
+      )}
+    </div>
   );
 }
 
