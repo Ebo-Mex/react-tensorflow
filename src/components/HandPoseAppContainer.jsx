@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomButon from "./CustomButton";
-import UserWebcam from "./UserWebcam";
+import HandPoseRecognition from "./HandPoseRecognition";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,22 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const videoContraints = {
-  width: 640,
-  height: 480,
-  facingMode: "user",
-};
-
 export default function HandPoseAppContainer() {
   const classes = useStyles();
   const [detect, setDetect] = useState(false);
   const [showCam, setShowCam] = useState(false);
-  const webcamRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (detect) {
-  //   }
-  // }, [detect]);
 
   const handleCam = () => {
     if (showCam) {
@@ -47,21 +35,18 @@ export default function HandPoseAppContainer() {
 
   return (
     <div className={classes.root}>
-      {/* TODO inline style is not good practice! */}
-      <h1 style={{ textAlign: "center" }}>Handpose Recognition</h1>
+      <h1>Handpose Recognition</h1>
       <CustomButon
         txt={showCam ? "Stop Webcam" : "Start Webcam"}
         handleClick={handleCam}
       />
       {showCam && (
-        <>
-          <CustomButon
-            txt={detect ? "Stop Recognition" : "Start Recognition"}
-            handleClick={handleDet}
-          />
-          <UserWebcam ref={webcamRef} videoConstraints={videoContraints} />
-        </>
+        <CustomButon
+          txt={detect ? "Stop Recognition" : "Start Recognition"}
+          handleClick={handleDet}
+        />
       )}
+      <HandPoseRecognition detect={detect} showCam={showCam} />
     </div>
   );
 }
