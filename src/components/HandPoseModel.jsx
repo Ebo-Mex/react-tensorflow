@@ -5,25 +5,29 @@ import * as handpose from "@tensorflow-models/handpose";
 import drawBB from "./drawBB";
 import useInterval from "./useInterval";
 
+// Use tf with handpose model to predict hand position
+// draw the results in a canvas
 export default function HandPoseModel({ video, width, height }) {
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
-
+  // Manage model predictions
   async function detection() {
-    if (model) {
-      canvasRef.current.width = width;
-      canvasRef.current.height = height;
-      const predictions = await model.estimateHands(video);
-      if (predictions.length > 0) {
-        const ctx = canvasRef.current.getContext("2d");
-        drawBB(predictions, ctx);
-      } else {
-        console.log("nuthin :(");
-      }
+    // Adjust canvas size to match webcam size
+    canvasRef.current.width = width;
+    canvasRef.current.height = height;
+    // Wait for model predictions on frame
+    const predictions = await model.estimateHands(video);
+    // Draw predictions
+    if (predictions.length > 0) {
+      const ctx = canvasRef.current.getContext("2d");
+      drawBB(predictions, ctx);
+    } else {
+      // TODO alert user of no detections
+      console.log("nuthin :(");
     }
   }
-
-  async function startModel() {
+  // Load model on first render
+  useEffect(async () => {
     try {
       await tf.ready();
       const mod = await handpose.load();
@@ -34,32 +38,16 @@ export default function HandPoseModel({ video, width, height }) {
       // TODO error handling
       console.log(err);
     }
-  }
-
-  useEffect(() => {
-    startModel();
   }, []);
-
+  // Calls detection function every 100ms if the model is loaded
   useInterval(
     () => {
       detection();
     },
     model ? 100 : null
   );
-
-  return (
-    <>
-      {model && (
-        <canvas
-          ref={canvasRef}
-          style={{
-            border: "1px solid black",
-            textAlign: "center",
-          }}
-        />
-      )}
-    </>
-  );
+  // Show canvas if model exists
+  return <>{model && <canvas ref={canvasRef} />}</>;
 }
 
 HandPoseModel.propTypes = {

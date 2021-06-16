@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 export default function useInterval(callback, delay) {
   const savedCallback = useRef();
 
+  // remember last callback
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
@@ -12,9 +13,9 @@ export default function useInterval(callback, delay) {
     function tick() {
       savedCallback.current();
     }
+    // Create interval and clear on unmount
     if (delay !== null) {
-      // eslint-disable-next-line prefer-const
-      let id = setInterval(tick, delay);
+      const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
   }, [delay]);

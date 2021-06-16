@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
+// Allow user to start/stop WebCam and HandPose Recognition Model
 export default function HandPoseAppContainer() {
   const classes = useStyles();
   const [detect, setDetect] = useState(false);
   const [showCam, setShowCam] = useState(false);
-
+  // Click handlers
   const handleCam = () => {
     if (showCam) {
       setDetect(false);
@@ -28,11 +28,9 @@ export default function HandPoseAppContainer() {
       setShowCam(true);
     }
   };
-
   const handleDet = () => {
     setDetect((prev) => !prev);
   };
-
   return (
     <div className={classes.root}>
       <h1>Handpose Recognition</h1>

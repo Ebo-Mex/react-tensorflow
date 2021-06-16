@@ -15,13 +15,13 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
-
+// WebCam display constraints
 const videoContraints = {
   width: 640,
   height: 480,
   facingMode: "user",
 };
-
+// Displays Webcam and HandPose predictions according to the received props
 export default function HandPoseRecognition({ detect, showCam }) {
   const classes = useStyles();
   const webcamRef = useRef(null);
