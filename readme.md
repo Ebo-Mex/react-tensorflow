@@ -2,6 +2,8 @@
 
 Demo project that makes use of tensorflow.js to build a simple computer vision app in react.
 
+Available at: https://handpose.emmasandbox.com
+
 ## Potential project
 
 Basic hand pose detection using the HandPose model.
