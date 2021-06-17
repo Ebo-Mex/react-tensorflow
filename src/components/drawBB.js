@@ -1,25 +1,21 @@
-export default function drawBB(detections, ctx) {
+export default function drawBB(detections, ctx, videoWidth) {
   // Loop through each prediction (just 1 atm)
   detections.forEach((prediction) => {
     // Extract box and confidence
     const { bottomRight, topLeft } = prediction.boundingBox;
-    const { handInViewConfidence } = prediction;
     // Set styling
-    ctx.strokeStyle = "red";
-    ctx.font = "30px Arial";
+    ctx.lineWidth = "3";
+    ctx.strokeStyle = "green";
     // Calculate BB position
     const [x, y] = topLeft;
-    const width = bottomRight[0] - topLeft[0];
-    const height = bottomRight[1] - topLeft[1];
-    // Draw text & rectangle
+    const width = Math.abs(bottomRight[0] - topLeft[0]);
+    const height = Math.abs(bottomRight[1] - topLeft[1]);
+    // Draw rectangle
     ctx.beginPath();
-    ctx.fillStyle = "red";
-    ctx.rect(x, y, width / 2, height / 2);
-    ctx.fillText(
-      `${Math.floor(handInViewConfidence * 100)}% sure that is a hand`,
-      x,
-      y
-    );
+    // Flip to fit mirrored frame
+    ctx.translate(videoWidth, 0);
+    ctx.scale(-1, 1);
+    ctx.rect(x, y, width, height);
     ctx.stroke();
   });
 }

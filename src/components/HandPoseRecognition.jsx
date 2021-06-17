@@ -7,6 +7,7 @@ import HandPoseModel from "./HandPoseModel";
 const useStyles = makeStyles(() => ({
   root: {
     width: "100%",
+    height: "80vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -30,6 +31,8 @@ export default function HandPoseRecognition({ detect, showCam }) {
     <div className={classes.root}>
       {showCam && (
         <Webcam
+          className={classes.video}
+          mirrored
           audio={false}
           ref={webcamRef}
           videoConstraints={videoContraints}
